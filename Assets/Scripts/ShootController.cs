@@ -8,7 +8,7 @@ public class ShootController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private float bulletForce = 20f;
-    [SerializeField] private float damage = 40f;
+    [SerializeField] private int damage = 40;
 
     private void Update()
     {
@@ -22,6 +22,7 @@ public class ShootController : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position,firePoint.rotation);
         Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<BulletController>().SetDamage(damage);
         bulletRigidbody.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
 }
