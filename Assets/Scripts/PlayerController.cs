@@ -12,11 +12,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private new Camera camera;
 
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int currentHealth;
+
+    [SerializeField] private HealthBarController healthBar;
+
     private void Start()
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         camera = FindObjectOfType<Camera>();
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -43,5 +51,11 @@ public class PlayerController : MonoBehaviour
         Vector2 distanceToMouse = mousePosition - playerRigidbody.position;
         float angle = Mathf.Atan2(distanceToMouse.y,distanceToMouse.x) * Mathf.Rad2Deg - 90f;
         playerRigidbody.rotation = angle;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 }
