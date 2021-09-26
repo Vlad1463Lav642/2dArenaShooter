@@ -15,7 +15,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth;
 
-    [SerializeField] private HealthBarController healthBar;
+    private HealthBarController healthBar;
+
+    private void Awake()
+    {
+        healthBar = FindObjectOfType<HealthBarController>();
+    }
 
     private void Start()
     {

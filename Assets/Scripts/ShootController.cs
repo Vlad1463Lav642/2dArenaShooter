@@ -10,11 +10,23 @@ public class ShootController : MonoBehaviour
     [SerializeField] private float bulletForce = 20f;
     [SerializeField] private int damage = 40;
 
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = gameObject.GetComponentInChildren<Animator>();
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            animator.SetBool("Is Shoot", true);
             Shoot();
+        }
+        else
+        {
+            animator.SetBool("Is Shoot", false);
         }
     }
 
