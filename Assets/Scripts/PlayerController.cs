@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private new Camera camera;
 
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
+    private int currentHealth;
 
     private HealthBarController healthBar;
 

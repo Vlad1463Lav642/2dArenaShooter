@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
+    private int currentHealth;
     [SerializeField] private float moveSpeed;
     private Rigidbody2D enemyRigidbody;
     private PlayerController player;
 
-    private float shootTime = 0.5f;
+    [SerializeField] private float shootTime = 0.5f;
     private float shootTimeCount;
     private bool isAttacked;
 

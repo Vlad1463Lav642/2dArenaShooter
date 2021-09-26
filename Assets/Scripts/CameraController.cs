@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
         lastPosition = player.transform.position;
     }
 
