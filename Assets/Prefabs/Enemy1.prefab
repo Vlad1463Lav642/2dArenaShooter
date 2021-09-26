@@ -143,8 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
   moveSpeed: 6
+  addToScore: 150
+  shootTime: 0.5
   firePoint: {fileID: 2561978123562196469}
   bulletPrefab: {fileID: 3741216607630965162, guid: dd93ca24f45d04fa9b6075774582f445, type: 3}
   bulletForce: 20

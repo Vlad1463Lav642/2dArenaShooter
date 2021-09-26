@@ -14,7 +14,7 @@ public class SpawnerController : MonoBehaviour
 
     private void Start()
     {
-        playerSelectedCharacter = PlayerPrefs.GetInt("ID");
+        playerSelectedCharacter = PlayerPrefs.GetInt("CharacterID");
 
         int playerPosition = (int)Random.Range(0f, spawnPoints.Length);
         Instantiate(playerCharacters[playerSelectedCharacter],spawnPoints[playerPosition].position,spawnPoints[playerPosition].rotation);

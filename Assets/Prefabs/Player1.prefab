@@ -144,7 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   maxHealth: 100
-  currentHealth: 0
 --- !u!114 &1557439284029767845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +159,7 @@ MonoBehaviour:
   firePoint: {fileID: 1557439283655552842}
   bulletPrefab: {fileID: 3741216607630965162, guid: dd93ca24f45d04fa9b6075774582f445, type: 3}
   bulletForce: 20
-  damage: 40
+  damage: 30
 --- !u!1 &1557439284101236596
 GameObject:
   m_ObjectHideFlags: 0

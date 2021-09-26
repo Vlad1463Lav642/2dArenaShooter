@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Vector2 movement;
     private Vector2 mousePosition;
+    private GameManager gameManager;
 
     [SerializeField] private float moveSpeed;
     private new Camera camera;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("Is Walk", false);
+        }
+
+        if(currentHealth <= 0)
+        {
+            gameManager.SetGameOver();
         }
 
         mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);

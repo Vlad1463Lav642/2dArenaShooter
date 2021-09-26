@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartGame(int id)
     {
-        PlayerPrefs.SetInt("ID", id);
+        PlayerPrefs.SetInt("CharacterID", id);
         SceneManager.LoadScene(gameLabel);
     }
 }

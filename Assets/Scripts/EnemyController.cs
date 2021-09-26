@@ -7,8 +7,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float addToScore;
     private Rigidbody2D enemyRigidbody;
     private PlayerController player;
+
+    private ScoreManager scoreManager;
 
     [SerializeField] private float shootTime = 0.5f;
     private float shootTimeCount;
@@ -33,6 +36,7 @@ public class EnemyController : MonoBehaviour
         enemyRigidbody = gameObject.GetComponent<Rigidbody2D>();
 
         player = FindObjectOfType<PlayerController>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     private void Update()
@@ -44,20 +48,29 @@ public class EnemyController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            scoreManager.AddScore(addToScore);
             Destroy(gameObject);
         }
     }
 
     private void FixedUpdate()
     {
-        directionToPlayer = player.transform.position - transform.position;
-        angleToPlayer = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
-        enemyRigidbody.rotation = angleToPlayer;
-        directionToPlayer.Normalize();
+        if (player != null)
+        {
+            directionToPlayer = player.transform.position - transform.position;
+            angleToPlayer = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90f;
+            enemyRigidbody.rotation = angleToPlayer;
+            directionToPlayer.Normalize();
+        }
 
         if (!isAttacked)
         {
+            animator.SetBool("Is Walk", true);
             MoveEnemy();
+        }
+        else
+        {
+            animator.SetBool("Is Walk", false);
         }
     }
 
