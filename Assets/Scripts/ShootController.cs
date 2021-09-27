@@ -15,6 +15,7 @@ public class ShootController : MonoBehaviour
 
     private Animator animator;
     [SerializeField] private Animator fireAnimator;
+    [SerializeField] private AudioSource shootAudio;
 
     private void Start()
     {
@@ -34,6 +35,17 @@ public class ShootController : MonoBehaviour
             {
                 animator.SetBool("Is Shoot", true);
                 fireAnimator.SetBool("Fire", true);
+
+                if (shootAudio.isPlaying)
+                {
+                    shootAudio.Stop();
+                    shootAudio.Play();
+                }
+                else
+                {
+                    shootAudio.Play();
+                }
+
                 Shoot();
 
                 shootTimeCount = shootTime;

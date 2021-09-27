@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string menuLabel;
     [SerializeField] private string gameLabel;
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private Texture2D aimArrow;
 
     private PlayerController player;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         gameOver.SetActive(false);
+        Cursor.SetCursor(aimArrow, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void RestartGame()

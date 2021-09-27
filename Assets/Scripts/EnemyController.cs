@@ -29,6 +29,9 @@ public class EnemyController : MonoBehaviour
     private Vector3 directionToPlayer;
     private float angleToPlayer;
 
+    [SerializeField] private AudioSource shootAudio;
+    [SerializeField] private AudioSource stepAudio;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -67,6 +70,12 @@ public class EnemyController : MonoBehaviour
         if (!isAttacked)
         {
             animator.SetBool("Is Walk", true);
+
+            if (!stepAudio.isPlaying)
+            {
+                stepAudio.Play();
+            }
+
             MoveEnemy();
         }
         else
@@ -93,6 +102,17 @@ public class EnemyController : MonoBehaviour
             {
                 animator.SetBool("Is Shoot", true);
                 fireAnimator.SetBool("Fire", true);
+
+                if (shootAudio.isPlaying)
+                {
+                    shootAudio.Stop();
+                    shootAudio.Play();
+                }
+                else
+                {
+                    shootAudio.Play();
+                }
+
                 Shoot();
 
                 shootTimeCount = shootTime;

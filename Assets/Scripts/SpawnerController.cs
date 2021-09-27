@@ -7,6 +7,7 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject[] playerCharacters;
     [SerializeField] private GameObject[] enemyCharacters;
+    [SerializeField] private AudioSource spawnAudio;
 
     [SerializeField] private float enemySpawnTime;
     private float enemySpawnTimeCount;
@@ -17,6 +18,9 @@ public class SpawnerController : MonoBehaviour
         playerSelectedCharacter = PlayerPrefs.GetInt("CharacterID");
 
         int playerPosition = (int)Random.Range(0f, spawnPoints.Length);
+
+        spawnAudio.Play();
+
         Instantiate(playerCharacters[playerSelectedCharacter],spawnPoints[playerPosition].position,spawnPoints[playerPosition].rotation);
 
         enemySpawnTimeCount = enemySpawnTime;
@@ -32,6 +36,8 @@ public class SpawnerController : MonoBehaviour
         {
             int enemyPosition = (int)Random.Range(0f, spawnPoints.Length);
             int enemySelector = (int)Random.Range(0f, enemyCharacters.Length);
+
+            spawnAudio.Play();
 
             Instantiate(enemyCharacters[enemySelector], spawnPoints[enemyPosition].position, spawnPoints[enemyPosition].rotation);
             enemySpawnTimeCount = enemySpawnTime;

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private int currentHealth;
 
     private HealthBarController healthBar;
+    [SerializeField] private AudioSource stepAudio;
 
     private void Awake()
     {
@@ -42,6 +43,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             animator.SetBool("Is Walk", true);
+
+            if (!stepAudio.isPlaying)
+            {
+                stepAudio.Play();
+            }
         }
         else
         {
