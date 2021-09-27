@@ -24,6 +24,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int damage = 40;
 
     private Animator animator;
+    [SerializeField] private Animator fireAnimator;
 
     private Vector3 directionToPlayer;
     private float angleToPlayer;
@@ -91,6 +92,7 @@ public class EnemyController : MonoBehaviour
             if (shootTimeCount <= 0)
             {
                 animator.SetBool("Is Shoot", true);
+                fireAnimator.SetBool("Fire", true);
                 Shoot();
 
                 shootTimeCount = shootTime;
@@ -104,6 +106,7 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             animator.SetBool("Is Shoot", false);
+            fireAnimator.SetBool("Fire", false);
             isAttacked = false;
         }
     }

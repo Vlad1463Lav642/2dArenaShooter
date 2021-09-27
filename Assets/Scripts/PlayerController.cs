@@ -70,4 +70,9 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
 }

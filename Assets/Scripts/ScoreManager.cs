@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(float score)
     {
         scoreCount += score;
-        scorePanel.text = $"Score: {score}";
+        scorePanel.text = $"Score: {scoreCount}";
 
         if(scoreCount > highScoreStorage)
         {
