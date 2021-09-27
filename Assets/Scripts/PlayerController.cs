@@ -8,14 +8,21 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Vector2 movement;
     private Vector2 mousePosition;
+    private GameManager gameManager;
 
     [SerializeField] private float moveSpeed;
     private new Camera camera;
 
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
+    private int currentHealth;
 
-    [SerializeField] private HealthBarController healthBar;
+    private HealthBarController healthBar;
+    [SerializeField] private AudioSource stepAudio;
+
+    private void Awake()
+    {
+        healthBar = FindObjectOfType<HealthBarController>();
+    }
 
     private void Start()
     {
@@ -25,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -35,10 +43,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             animator.SetBool("Is Walk", true);
+
+            if (!stepAudio.isPlaying)
+            {
+                stepAudio.Play();
+            }
         }
         else
         {
             animator.SetBool("Is Walk", false);
+        }
+
+        if(currentHealth <= 0)
+        {
+            gameManager.SetGameOver();
         }
 
         mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
@@ -57,5 +75,10 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 }
