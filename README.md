@@ -2,6 +2,8 @@
 
 > This game is a classic arcade 2D top-down shooter in which the player must fight off endless waves of enemies and earn points.
 
+![LogoImage](https://user-images.githubusercontent.com/89180498/134961395-30bda5ce-16ee-4ab8-ab07-0c1e4de0dc47.png)
+
 ---
 
 ## Controls:
