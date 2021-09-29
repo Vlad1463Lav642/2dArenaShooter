@@ -4,26 +4,31 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
-    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] characterSpawnPoints;
+    [SerializeField] private Transform[] healthSpawnPoints;
     [SerializeField] private GameObject[] playerCharacters;
     [SerializeField] private GameObject[] enemyCharacters;
+    [SerializeField] private GameObject healthObject;
     [SerializeField] private AudioSource spawnAudio;
-
     [SerializeField] private float enemySpawnTime;
+    [SerializeField] private float healthSpawnTime;
+
     private float enemySpawnTimeCount;
+    private float healthSpawnTimeCount;
     private int playerSelectedCharacter;
 
     private void Start()
     {
         playerSelectedCharacter = PlayerPrefs.GetInt("CharacterID");
 
-        int playerPosition = (int)Random.Range(0f, spawnPoints.Length);
+        int playerPosition = (int)Random.Range(0f, characterSpawnPoints.Length);
 
         spawnAudio.Play();
 
-        Instantiate(playerCharacters[playerSelectedCharacter],spawnPoints[playerPosition].position,spawnPoints[playerPosition].rotation);
+        Instantiate(playerCharacters[playerSelectedCharacter],characterSpawnPoints[playerPosition].position,characterSpawnPoints[playerPosition].rotation);
 
         enemySpawnTimeCount = enemySpawnTime;
+        healthSpawnTimeCount = healthSpawnTime;
     }
 
     private void Update()
@@ -34,13 +39,51 @@ public class SpawnerController : MonoBehaviour
         }
         else
         {
-            int enemyPosition = (int)Random.Range(0f, spawnPoints.Length);
-            int enemySelector = (int)Random.Range(0f, enemyCharacters.Length);
+            SpawnEnemyCharacter();
+        }
 
+        if(healthSpawnTimeCount > 0)
+        {
+            healthSpawnTimeCount -= Time.deltaTime;
+        }
+        else
+        {
+            SpawnPickup();
+        }
+    }
+
+    private void SpawnEnemyCharacter()
+    {
+        int enemyPosition = (int)Random.Range(0f, characterSpawnPoints.Length);
+        int enemySelector = (int)Random.Range(0f, enemyCharacters.Length);
+
+        if (characterSpawnPoints[enemyPosition].GetComponent<SpawnPointScript>().GetIsStayed() == false)
+        {
             spawnAudio.Play();
 
-            Instantiate(enemyCharacters[enemySelector], spawnPoints[enemyPosition].position, spawnPoints[enemyPosition].rotation);
+            Instantiate(enemyCharacters[enemySelector], characterSpawnPoints[enemyPosition].position, characterSpawnPoints[enemyPosition].rotation);
             enemySpawnTimeCount = enemySpawnTime;
+        }
+        else
+        {
+            SpawnEnemyCharacter();
+        }
+    }
+
+    private void SpawnPickup()
+    {
+        int healthPosition = (int)Random.Range(0f, healthSpawnPoints.Length);
+
+        if (healthSpawnPoints[healthPosition].GetComponent<SpawnPointScript>().GetIsStayed() == false)
+        {
+            spawnAudio.Play();
+
+            Instantiate(healthObject, healthSpawnPoints[healthPosition].position, healthSpawnPoints[healthPosition].rotation);
+            healthSpawnTimeCount = healthSpawnTime;
+        }
+        else
+        {
+            SpawnPickup();
         }
     }
 }
