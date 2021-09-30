@@ -22,4 +22,9 @@ public class HealthBarController : MonoBehaviour
     {
         healthSlider.value = health;
     }
+
+    public void AddHealth(int healValue)
+    {
+        healthSlider.value += healValue;
+    }
 }
